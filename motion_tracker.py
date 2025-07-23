@@ -80,7 +80,7 @@ def get_status_color(is_still, is_centered):
     if is_still and is_centered:
         return (0, 255, 0)  # Green - "STILL; Centered"
     if is_still and not is_centered:
-        return (0, 128, 255)  # Orange - "STILL; Not Centered"
+        return (0, 220, 255)  # Yellow - "STILL; Not Centered"
     else:
         return (0, 0, 255)  # Red - "MOVING; Not Centered"
 
