@@ -83,7 +83,7 @@ def get_status_color(is_still, is_centered):
     if is_still and is_centered:
         return (0, 255, 0)  # Green - "STILL; Centered"
     if is_still and not is_centered:
-        return (0, 220, 255)  # Yellow - "STILL; Not Centered"
+        return (0, 255, 255)  # Yellow - "STILL; Not Centered"
     else:
         return (0, 0, 255)  # Red - "MOVING; Not Centered"
 
@@ -180,7 +180,7 @@ def main():
                 cv2.polylines(frame, [bbox.astype(int)], isClosed=True, color=(255, 0, 0), thickness=3)
                 cv2.circle(frame, center, 8, (255, 0, 0), -1)
                 cv2.putText(frame, "CENTER", (center[0] - 30, center[1] - 15), 
-                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 180, 180), 2)
 
             # Handle target QR code
             elif data == TARGET_QR_DATA:
@@ -195,7 +195,7 @@ def main():
                 cv2.polylines(frame, [bbox.astype(int)], isClosed=True, color=(0, 255, 0), thickness=2)
                 cv2.circle(frame, current_center_pixel, 5, (0, 0, 255), -1)
                 cv2.putText(frame, "TARGET", (current_center_pixel[0] - 30, current_center_pixel[1] - 15), 
-                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 180, 0), 2)
 
                 if is_center_set:
                     total_dist_mm, dist_x_mm, dist_y_mm = calculate_displacement(current_center_pixel)
@@ -226,8 +226,8 @@ def main():
                     
                     info_text = f"X: {dist_x_display:.2f}{unit_label} | Y: {dist_y_display:.2f}{unit_label}"
                     total_dist_text = f"Total Disp: {total_dist_display:.2f}{unit_label}"
-                    cv2.putText(frame, info_text, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
-                    cv2.putText(frame, total_dist_text, (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
+                    cv2.putText(frame, info_text, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (180, 180, 0), 2)
+                    cv2.putText(frame, total_dist_text, (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (180, 180, 0), 2)
 
                     # Determine status based on stillness and centering
                     is_still = is_qr_still(current_time)
@@ -245,11 +245,11 @@ def main():
         # Display status messages
         if not is_center_set:
             if found_center_qr:
-                cv2.putText(frame, "Center QR detected - setting reference...", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
+                cv2.putText(frame, "Center QR detected - setting reference...", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 180, 180), 2)
             else:
                 cv2.putText(frame, "Show CENTER QR code to set reference", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
         else:
-            cv2.putText(frame, "Center Set. Tracking...", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+            cv2.putText(frame, "Center Set. Tracking...", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 180, 0), 2)
             cv2.circle(frame, center_pixel, 7, (0, 255, 0), -1)
             cv2.drawMarker(frame, center_pixel, (255, 255, 255), markerType=cv2.MARKER_CROSS, markerSize=15, thickness=2)
 
@@ -262,7 +262,7 @@ def main():
         
         if qr_status:
             status_msg = f"QR Codes: {', '.join(qr_status)}"
-            cv2.putText(frame, status_msg, (10, frame.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+            cv2.putText(frame, status_msg, (10, frame.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (180, 180, 180), 2)
 
         cv2.imshow('MRI Head Motion Tracker - Dual QR', frame)
 
