@@ -80,7 +80,7 @@ def get_status_color(is_still, is_centered):
     if is_still and is_centered:
         return (0, 255, 0)  # Green - "STILL; Centered"
     if is_still and not is_centered:
-        return (0, 220, 255)  # Yellow - "STILL; Not Centered"
+        return (0, 255, 255)  # Yellow - "STILL; Not Centered"
     else:
         return (0, 0, 255)  # Red - "MOVING; Not Centered"
 
@@ -174,8 +174,8 @@ def main():
                 
                 info_text = f"X: {dist_x_display:.2f}{unit_label} | Y: {dist_y_display:.2f}{unit_label}"
                 total_dist_text = f"Total Disp: {total_dist_display:.2f}{unit_label}"
-                cv2.putText(frame, info_text, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
-                cv2.putText(frame, total_dist_text, (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
+                cv2.putText(frame, info_text, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (180, 180, 0), 2)
+                cv2.putText(frame, total_dist_text, (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (180, 180, 0), 2)
 
                 # Determine status based on stillness and centering
                 is_still = is_qr_still(current_time)
@@ -193,9 +193,9 @@ def main():
         if not is_center_set:
             cv2.putText(frame, "Press 'c' to set center", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
         else:
-            cv2.putText(frame, "Center Set. Tracking...", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+            cv2.putText(frame, "Center Set. Tracking...", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 180, 0), 2)
             cv2.circle(frame, center_pixel, 7, (0, 255, 0), -1)
-            cv2.drawMarker(frame, center_pixel, (255, 255, 255), markerType=cv2.MARKER_CROSS, markerSize=15, thickness=2)
+            cv2.drawMarker(frame, center_pixel, (180, 180, 180), markerType=cv2.MARKER_CROSS, markerSize=15, thickness=2)
 
         cv2.imshow('MRI Head Motion Tracker', frame)
 
